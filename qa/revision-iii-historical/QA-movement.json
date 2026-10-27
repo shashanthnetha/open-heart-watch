@@ -1,0 +1,52 @@
+{
+  "viewport": [
+    640,
+    700
+  ],
+  "checks": [
+    {
+      "name": "Energy focus",
+      "pass": true
+    },
+    {
+      "name": "Balance focus dims other assemblies",
+      "pass": true
+    },
+    {
+      "name": "Pause stops internal mechanism time",
+      "pass": true
+    },
+    {
+      "name": "Resume restores movement",
+      "pass": true
+    },
+    {
+      "name": "Opening bridges reveals train",
+      "pass": true
+    },
+    {
+      "name": "Leap day calendar drawn",
+      "pass": true
+    },
+    {
+      "name": "Midnight rolls date from leap day",
+      "pass": true
+    },
+    {
+      "name": "Year boundary calendar",
+      "pass": true
+    },
+    {
+      "name": "All three hands point up at midnight",
+      "pass": true
+    },
+    {
+      "name": "Clearing override recovers live clock",
+      "pass": true
+    },
+    {
+      "name": "No runtime exceptions",
+      "pass": true
+    }
+  ]
+}

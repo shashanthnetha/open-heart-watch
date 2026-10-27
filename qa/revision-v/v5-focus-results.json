@@ -1,0 +1,23 @@
+[
+  {
+    "name": "focus train",
+    "pass": true
+  },
+  {
+    "name": "focus balance",
+    "pass": true
+  },
+  {
+    "name": "focus chrono",
+    "pass": true
+  },
+  {
+    "name": "focus all",
+    "pass": true
+  },
+  {
+    "name": "No runtime errors",
+    "pass": true,
+    "detail": []
+  }
+]

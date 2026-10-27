@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Real pointer starts timer",
+    "pass": true
+  },
+  {
+    "name": "Running reset disabled",
+    "pass": true
+  },
+  {
+    "name": "Timer advances",
+    "pass": true
+  },
+  {
+    "name": "Real pointer stops timer",
+    "pass": true
+  },
+  {
+    "name": "Real pointer resets timer",
+    "pass": true
+  },
+  {
+    "name": "No runtime errors",
+    "pass": true,
+    "detail": []
+  }
+]

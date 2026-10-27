@@ -1,0 +1,8 @@
+import {build} from 'esbuild';import fs from 'node:fs';
+const test=`import {sample} from './js/timeline.js';import {kin,ctl,chronoAction} from './js/movement.js';
+const check=(c,m)=>{if(!c)throw Error(m)};const near=(a,b)=>Math.abs(a-b)<1e-8;
+const points=Array.from({length:901},(_,i)=>i/100);const states=points.map(p=>JSON.stringify(sample(p)));
+for(const p of points.slice().reverse()){check(JSON.stringify(sample(p))===states[Math.round(p*100)],'reversal '+p);check(Object.values(sample(p)).flat().every(Number.isFinite),'finite '+p)}
+for(let t=0;t<60;t+=.137){let a=kin(t),b=kin(t+.4);check(near(a.bal,b.bal),'2.5Hz');check(near(kin(t+6).E-a.E,-2*Math.PI),'escape six-second period');check(near(a.car,0),'fixed balance, no cage rotation');check(Object.values(a).filter(x=>typeof x==='number').every(Number.isFinite),'finite kinematics')}
+Object.assign(ctl,{elapsed:0,running:false,steps:0,eased:0,now:100,lastT:100});check(chronoAction('toggle')&&ctl.running,'start');check(near(kin(103).chrono,3),'advance');check(!chronoAction('reset'),'running reset blocked');chronoAction('toggle');check(!ctl.running,'stop');check(near(kin(120).chrono,3),'stopped holds');chronoAction('toggle');check(near(kin(122).chrono,5),'resume');chronoAction('toggle');chronoAction('reset');check(near(kin(125).chrono,0),'reset');console.log('PASS: 901 timeline finite/reverse states, 438 frequency checks and stopwatch start/stop/reset/resume');`;
+const r=await build({stdin:{contents:test,resolveDir:process.cwd()},bundle:true,format:'esm',write:false,alias:{three:'./vendor/three.module.js'}});fs.writeFileSync('/tmp/watch-math-test.mjs',r.outputFiles[0].text);await import('file:///tmp/watch-math-test.mjs?'+Date.now());

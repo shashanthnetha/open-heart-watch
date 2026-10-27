@@ -1,0 +1,16 @@
+{
+  "viewport": [
+    390,
+    844
+  ],
+  "checks": [
+    {
+      "name": "Focus headline hidden",
+      "pass": true
+    },
+    {
+      "name": "No runtime exceptions",
+      "pass": true
+    }
+  ]
+}

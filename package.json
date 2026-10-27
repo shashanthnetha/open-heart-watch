@@ -1,0 +1,19 @@
+{
+  "name": "open-heart-concept-39-7",
+  "version": "5.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "offline": "node tools/build.mjs",
+    "test:math": "node tools/math-test.mjs",
+    "test:browser": "node tools/qa.mjs",
+    "test:motion": "node tools/input-review.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "vite": "^8.3.5"
+  },
+  "type": "module"
+}

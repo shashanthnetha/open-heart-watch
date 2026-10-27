@@ -1,0 +1,22 @@
+import * as THREE from 'three';
+import {gearGeometry,ringGeometry} from './gears.js';
+import {mesh,cyl} from './parts.js';
+import {plateGeom,hullShape} from './movement.js';
+const Z=new THREE.Vector3(0,0,1),TAU=Math.PI*2;
+const disc=(r,h)=>cyl(r,h,36).rotateX(Math.PI/2);
+const NOTE='Auxiliary stopwatch study, separate from the supplied exterior. Prescribed clutch, lever and counter motion, not a force or contact simulation.';
+export function buildChrono(R){const M=R.M;
+ const add=(n,build,pos,anim)=>R.add(n,'Chronograph',3,build,{pos,anim,mat:'Satin steel / brass wheelwork',finish:'Machined, with polished edges',note:NOTE});
+ const wheel=(n,x,y,N,m,fn)=>add(n,g=>{mesh(gearGeometry({N,m,t:.16,bore:.12,spokes:5,hub:.27,rim:.13,bevel:.012}),M.gearGold,g);mesh(disc(.22,.16),M.steelPolished,g,[0,0,.1]);},[x,y,1.12],(t,p,k)=>p.q.setFromAxisAngle(Z,fn(k)));
+ wheel('Chronograph drive wheel',-3.375,7.5,30,.075,k=>k.I);
+ wheel('Chronograph wheel',0,7.5,60,.075,k=>-k.chrono/60*TAU);
+ wheel('Minute-counter wheel',3.375,7.5,30,.075,k=>k.chrono/120*TAU);
+ add('Column wheel',g=>{mesh(gearGeometry({N:18,m:.095,t:.12,bore:.12}),M.blued,g);mesh(disc(.64,.15),M.steelPolished,g,[0,0,.13]);for(let i=0;i<6;i++){const a=i/6*TAU;const m=mesh(new THREE.BoxGeometry(.25,.30,.34),M.steelPolished,g,[.58*Math.cos(a),.58*Math.sin(a),.3]);m.rotation.z=a;}mesh(disc(.18,.2),M.steelPolished,g,[0,0,.3]);},[-.8,11.2,1.1],(t,p,k)=>p.q.setFromAxisAngle(Z,k.col));
+ const lever=(name,points,pos,anim)=>add(name,g=>{const s=hullShape(points.map(([x,y,r])=>({x,y,r})));mesh(plateGeom(s,.15,.02),M.steelBrushed,g);mesh(disc(.23,.18),M.steelPolished,g,[0,0,.13]);mesh(new THREE.BoxGeometry(.32,.05,.02),M.steelDark,g,[0,0,.23]);},pos,anim);
+ lever('Operating lever',[[0,0,.35],[-2.6,1.4,.22],[-4,1.1,.16]],[3,10.4,1.48],(t,p,k)=>p.q.setFromAxisAngle(Z,k.push*.1));
+ lever('Coupling lever',[[0,0,.32],[1.2,-1.2,.20],[2.2,-1.5,.15]],[-4.9,10,1.43],(t,p,k)=>p.q.setFromAxisAngle(Z,k.running?-.065:.065));
+ lever('Hammer',[[0,0,.30],[-.8,-1.25,.2],[1.6,-1.5,.18]],[1.1,10.6,1.65],(t,p,k)=>p.q.setFromAxisAngle(Z,k.push*.12));
+ add('Vertical clutch assembly',g=>{mesh(ringGeometry(.74,.14,.15,.018,36),M.steelBrushed,g);mesh(ringGeometry(.62,.14,.12,.018,36),M.steelPolished,g,[0,0,.2]);mesh(disc(.11,.75),M.steelPolished,g);},[0,7.5,1.48],(t,p,k)=>{p.pos.z=p.pos0.z+(k.running?0:.16);p.q.setFromAxisAngle(Z,-k.chrono/60*TAU);});
+ add('Heart cam (seconds)',g=>{const s=new THREE.Shape();for(let i=0;i<=64;i++){const a=i/64*TAU,r=.30+.18*(1-Math.sin(a));(i?s.lineTo(r*Math.cos(a),r*Math.sin(a)):s.moveTo(r*Math.cos(a),r*Math.sin(a)));}s.closePath();mesh(plateGeom(s,.12,.016),M.steelPolished,g);},[0,7.5,1.9],(t,p,k)=>p.q.setFromAxisAngle(Z,-k.chrono/60*TAU));
+ add('Chronograph upper bridge',g=>{mesh(plateGeom(hullShape([{x:-3.375,y:7.5,r:.48},{x:0,y:7.5,r:.6},{x:3.375,y:7.5,r:.48},{x:4.3,y:6.3,r:.65}], [{x:0,y:7.5,r:.24}]),.18,.025),M.silverBridge,g);for(const x of [-3.375,3.375]){mesh(ringGeometry(.29,.14,.08,.012,24),M.balanceGold,g,[x,7.5,.15]);mesh(disc(.15,.06),M.ruby,g,[x,7.5,.18]);}mesh(disc(.24,.1),M.blued,g,[4.3,6.3,.17]);},[0,0,2.02]);
+}

@@ -1,0 +1,73 @@
+[
+  {
+    "name": "Chapter 04 visibly separates all three assemblies",
+    "pass": true,
+    "detail": {
+      "a": [
+        {
+          "name": "Barrel cover",
+          "pos": [
+            -7.6,
+            0,
+            -0.15
+          ]
+        },
+        {
+          "name": "Train bridge",
+          "pos": [
+            0,
+            0,
+            0.9
+          ]
+        },
+        {
+          "name": "Chronograph support bridge",
+          "pos": [
+            0,
+            0,
+            0.5
+          ]
+        }
+      ],
+      "b": [
+        {
+          "name": "Barrel cover",
+          "pos": [
+            -17.6,
+            9,
+            9.85
+          ]
+        },
+        {
+          "name": "Train bridge",
+          "pos": [
+            4,
+            7,
+            9.9
+          ]
+        },
+        {
+          "name": "Chronograph support bridge",
+          "pos": [
+            0,
+            6,
+            11.5
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "Reverse exactly reseats assemblies",
+    "pass": true
+  },
+  {
+    "name": "Hide upper bridges keeps mainplate",
+    "pass": true
+  },
+  {
+    "name": "No runtime errors",
+    "pass": true,
+    "detail": []
+  }
+]

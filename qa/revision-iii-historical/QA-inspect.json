@@ -1,0 +1,48 @@
+{
+  "viewport": [
+    640,
+    480
+  ],
+  "checks": [
+    {
+      "name": "Parts search",
+      "pass": true
+    },
+    {
+      "name": "Highlight selection",
+      "pass": true
+    },
+    {
+      "name": "Isolate dims rest",
+      "pass": true
+    },
+    {
+      "name": "Deep drag orbits",
+      "pass": true
+    },
+    {
+      "name": "Deep wheel does not page scroll",
+      "pass": true
+    },
+    {
+      "name": "Escape clears selection",
+      "pass": true
+    },
+    {
+      "name": "Reverse scroll restores geometry positions",
+      "pass": true
+    },
+    {
+      "name": "Autoplay stops at end",
+      "pass": true
+    },
+    {
+      "name": "Play restarts from end",
+      "pass": true
+    },
+    {
+      "name": "No runtime exceptions",
+      "pass": true
+    }
+  ]
+}

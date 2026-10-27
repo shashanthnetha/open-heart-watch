@@ -1,0 +1,20 @@
+{
+  "viewport": [
+    640,
+    480
+  ],
+  "checks": [
+    {
+      "name": "Unpaired colour combinations via real clicks (DIAL restricts to nine)",
+      "pass": true
+    },
+    {
+      "name": "Paired dial applies both materials",
+      "pass": true
+    },
+    {
+      "name": "No runtime exceptions",
+      "pass": true
+    }
+  ]
+}

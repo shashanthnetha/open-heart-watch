@@ -1,0 +1,42 @@
+[
+  {
+    "name": "hard wheel is compressed, not queued",
+    "pass": true
+  },
+  {
+    "name": "stopped wheel has no catch-up",
+    "pass": true
+  },
+  {
+    "name": "reverse input reverses on next rendered frame",
+    "pass": true
+  },
+  {
+    "name": "native mode available",
+    "pass": true
+  },
+  {
+    "name": "scrollbar reaches end without queued travel",
+    "pass": true
+  },
+  {
+    "name": "full reverse immediately restores start",
+    "pass": true
+  },
+  {
+    "name": "index arrives at useful mechanism overview",
+    "pass": true
+  },
+  {
+    "name": "wheel cancels chapter travel",
+    "pass": true
+  },
+  {
+    "name": "27 configuration handlers",
+    "pass": true
+  },
+  {
+    "name": "no runtime errors",
+    "pass": true
+  }
+]

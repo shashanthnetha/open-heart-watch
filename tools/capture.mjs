@@ -1,0 +1,12 @@
+import {spawn} from 'node:child_process';import fs from 'node:fs';
+const args=process.argv.slice(2),W=+(process.env.W||1280),H=+(process.env.H||800),port=+(process.env.PORT||9344);
+const server=spawn('python3',['-m','http.server','8183','--bind','127.0.0.1'],{stdio:'ignore'});
+const ch=spawn('google-chrome',['--headless=new',`--user-data-dir=/tmp/watch-capture-${Date.now()}`,'--no-sandbox','--enable-unsafe-swiftshader','--use-angle=swiftshader',`--window-size=${W},${H}`,'--hide-scrollbars',`--remote-debugging-port=${port}`,'about:blank'],{stdio:'ignore'});
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));let tabs;for(let i=0;i<30;i++){try{tabs=await(await fetch(`http://127.0.0.1:${port}/json`)).json();if(tabs[0])break;}catch{}await sleep(300);}
+const ws=new WebSocket(tabs.find(t=>t.type==='page').webSocketDebuggerUrl);await new Promise(r=>ws.onopen=r);let id=0,pending={};const logs=[];
+ws.onmessage=m=>{const d=JSON.parse(m.data);if(d.id){pending[d.id]?.(d);delete pending[d.id];}else if(d.method==='Runtime.exceptionThrown')logs.push(d.params.exceptionDetails.exception?.description||d.params.exceptionDetails.text)};
+const send=(method,params={})=>new Promise((r,j)=>{const i=++id;const t=setTimeout(()=>j(Error(method+' timeout')),100000);pending[i]=d=>{clearTimeout(t);r(d)};ws.send(JSON.stringify({id:i,method,params}));});
+const ev=async expression=>(await send('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true})).result?.result?.value;
+await send('Runtime.enable');await send('Page.enable');await send('Emulation.setDeviceMetricsOverride',{width:W,height:H,deviceScaleFactor:1,mobile:W<500});
+for(const a of args){const [p,n]=a.split(':');await send('Page.navigate',{url:(process.env.URL||'http://127.0.0.1:8183/build/index.html')+'?p='+p+'&t=7.25&shot=1'});for(let i=0;i<60;i++){if(await ev('!!window.__dbg'))break;await sleep(500)}await ev('__dbg.renderer.setPixelRatio(+(new URLSearchParams(location.search).get("qaRatio")||.65))');await ev('new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))');console.log(n,await ev('({parts:__watch.total,P:__dbg.P,tri:__dbg.camera.position.toArray()})'),logs);const s=await send('Page.captureScreenshot',{format:'png',fromSurface:false});fs.writeFileSync('/downloads/'+n+'.png',Buffer.from(s.result.data,'base64'));}
+ws.close();const exited=p=>p.exitCode!==null?Promise.resolve():new Promise(r=>p.once('exit',r));const done=[exited(ch),exited(server)];ch.kill();server.kill();await Promise.all(done);process.exit(0);

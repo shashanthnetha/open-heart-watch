@@ -1,0 +1,20 @@
+{
+  "viewport": [
+    640,
+    400
+  ],
+  "checks": [
+    {
+      "name": "Finite transforms across 19 rendered states",
+      "pass": true
+    },
+    {
+      "name": "No runtime exceptions",
+      "pass": true
+    },
+    {
+      "name": "No runtime exceptions",
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+[
+  {
+    "name": "mechanism pause",
+    "pass": true
+  },
+  {
+    "name": "bridge control",
+    "pass": true
+  },
+  {
+    "name": "chronograph starts",
+    "pass": true
+  },
+  {
+    "name": "chronograph stops and resets",
+    "pass": true
+  },
+  {
+    "name": "no runtime errors",
+    "pass": true,
+    "detail": []
+  }
+]

@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Search finds exact part",
+    "pass": true
+  },
+  {
+    "name": "Deep mouse orbit",
+    "pass": true
+  },
+  {
+    "name": "Deep wheel does not scroll page",
+    "pass": true
+  },
+  {
+    "name": "Escape returns from Deep",
+    "pass": true
+  },
+  {
+    "name": "No runtime errors",
+    "pass": true,
+    "detail": []
+  }
+]

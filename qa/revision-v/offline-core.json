@@ -1,0 +1,49 @@
+{
+  "viewport": [
+    960,
+    700
+  ],
+  "checks": [
+    {
+      "name": "37 source objects plus concept parts",
+      "pass": true
+    },
+    {
+      "name": "Study opens",
+      "pass": true
+    },
+    {
+      "name": "Index opens",
+      "pass": true
+    },
+    {
+      "name": "Index closes",
+      "pass": true
+    },
+    {
+      "name": "Arrow navigation reaches a composed chapter pose",
+      "pass": true
+    },
+    {
+      "name": "Start advances stopwatch",
+      "pass": true
+    },
+    {
+      "name": "Reset blocked running",
+      "pass": true
+    },
+    {
+      "name": "Stop holds time",
+      "pass": true
+    },
+    {
+      "name": "Reset zero",
+      "pass": true
+    },
+    {
+      "name": "No runtime exceptions",
+      "pass": true
+    }
+  ],
+  "logs": []
+}

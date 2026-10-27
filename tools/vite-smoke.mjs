@@ -1,0 +1,3 @@
+import {createServer} from 'node:http';import fs from 'node:fs';import {spawn} from 'node:child_process';
+const server=createServer((req,res)=>{const path='build'+decodeURI(req.url.split('?')[0]==='/'?'/index.html':req.url.split('?')[0]);try{res.setHeader('Content-Type',path.endsWith('.js')?'text/javascript':path.endsWith('.css')?'text/css':'text/html');res.end(fs.readFileSync(path))}catch{res.statusCode=404;res.end('Not found')}});await new Promise(r=>server.listen(5199,'127.0.0.1',r));
+const c=spawn(process.execPath,['tools/capture.mjs','6.5:vite-built-config'],{stdio:'inherit',env:{...process.env,URL:'http://127.0.0.1:5199/index.html'}});const code=await new Promise(r=>c.on('exit',r));server.close();process.exit(code||0);

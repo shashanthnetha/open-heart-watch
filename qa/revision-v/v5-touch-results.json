@@ -1,0 +1,19 @@
+[
+  {
+    "name": "Touch advances native scroll",
+    "pass": true
+  },
+  {
+    "name": "Touch Deep orbit",
+    "pass": true
+  },
+  {
+    "name": "Leaving Deep restores page pan",
+    "pass": true
+  },
+  {
+    "name": "No runtime errors",
+    "pass": true,
+    "detail": []
+  }
+]

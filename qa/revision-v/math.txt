@@ -1,0 +1,5 @@
+
+> open-heart-concept-39-7@5.0.0 test:math
+> node tools/math-test.mjs
+
+PASS: 901 timeline finite/reverse states, 438 frequency checks and stopwatch start/stop/reset/resume
