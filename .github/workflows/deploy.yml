@@ -1,0 +1,47 @@
+name: Deploy site
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['*watch-source.tar.gz']
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Unpack source into the repository
+        run: |
+          F=$(ls *watch-source.tar.gz 2>/dev/null | head -1); if [ -n "$F" ]; then
+            mkdir -p /tmp/src && tar xzf "$F" -C /tmp/src
+            cp -a /tmp/src/watch-revision-v/. .
+            git rm -q -f "$F"
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A
+            git commit -m "Unpack Revision V source"
+            git push
+          fi
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.d.outputs.page_url }}
+    steps:
+      - id: d
+        uses: actions/deploy-pages@v4
